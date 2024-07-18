@@ -1,34 +1,71 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import CountDisplay from "./components/CountDisplay.jsx";
+import React, {useMemo} from "react";
+import Form from "./components/Form.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [dateValue, setDateValue] = React.useState({
+    day: 0,
+    month: 0,
+    year: 0
+  });
+
+  const onSubmitForm = (e) => {
+    setDateValue(e)
+  }
+
+  const data = useMemo(() => {
+    const currentDate = new Date();
+    const birthDate = new Date(dateValue.year, dateValue.month - 1, dateValue.day);
+
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+    const currentDay = currentDate.getDate();
+
+    const birthYear = birthDate.getFullYear();
+    const birthMonth = birthDate.getMonth();
+    const birthDay = birthDate.getDate();
+
+    let years = currentYear - birthYear;
+    let months = currentMonth - birthMonth;
+    let days = currentDay - birthDay;
+
+    // Checking birth month greater than current month or birthday is greater than current day must equal birth current month
+    if (currentMonth < birthMonth || (currentMonth === birthMonth && currentDay < birthDay)) {
+      // previous year because it didn't pass the birth month or day
+      years -= 1;
+      months += 12; // compensate
+    }
+
+    // IDK
+    if (days < 0) {
+      const previousMonth = new Date(currentYear, currentMonth, 0).getDate();
+      days += previousMonth;
+      months -= 1;
+    }
+
+    years = dateValue.year ? years : 0;
+    months = dateValue.month ? months : 0;
+    days = dateValue.day ? days : 0;
+
+    return {
+      day: dateValue.day ? days : '--',
+      month: dateValue.month ? months : '--',
+      year: years || '--',
+    };
+  }, [dateValue])
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className={'w-full h-screen bg-neutral-100 flex justify-center items-center'}>
+      <div className={'bg-white rounded-3xl p-12 inline-block space-y-5 rounded-br-[172px]'}>
+        <Form onSubmitForm={onSubmitForm}/>
+        <div className={'-space-y-1 select-none'}>
+          <CountDisplay label={'years'} number={data.year}/>
+          <CountDisplay label={'months'} number={data.month}/>
+          <CountDisplay label={'days'} number={data.day}/>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
