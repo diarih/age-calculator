@@ -37,8 +37,9 @@ function App() {
       months += 12; // compensate
     }
 
-    // IDK
+    // Checking if the date is lower than current
     if (days < 0) {
+      // Get the previous month days
       const previousMonth = new Date(currentYear, currentMonth, 0).getDate();
       days += previousMonth;
       months -= 1;
