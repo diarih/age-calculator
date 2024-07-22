@@ -3,7 +3,7 @@ import './InputNumber.module.css'
 
 const InputNumber = forwardRef(({label = 'LABEL', error = false, errorMsg = 'Error', ...props}, ref) => {
   return (
-    <div className={'space-y-2 w-32'}>
+    <div className={'space-y-2 lg:w-32 w-full'}>
       <label className={'font-semibold text-gray-500 uppercase block text-xs tracking-widest'}>
         {label}
       </label>

@@ -57,8 +57,8 @@ function App() {
   }, [dateValue])
 
   return (
-    <div className={'w-full h-screen bg-neutral-100 flex justify-center items-center'}>
-      <div className={'bg-white rounded-3xl p-12 inline-block space-y-5 rounded-br-[172px]'}>
+    <div className={'w-full h-screen bg-neutral-100 flex justify-center items-center p-4'}>
+      <div className={'bg-white rounded-3xl p-8 lg:p-12 inline-block space-y-5 lg:rounded-br-[172px] rounded-br-[64px]'}>
         <Form onSubmitForm={onSubmitForm}/>
         <div className={'-space-y-1 select-none'}>
           <CountDisplay label={'years'} number={data.year}/>

@@ -28,7 +28,7 @@ const Form = ({onSubmitForm}) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className={'flex gap-6 mr-24'}>
+      <div className={'flex gap-6 lg:mr-24'}>
         <InputNumber
           {...register("day", {
             required: "The field is required",
@@ -66,9 +66,9 @@ const Form = ({onSubmitForm}) => {
           errorMsg={errors.year && errors.year.message}
         />
       </div>
-      <div className="relative flex justify-end items-center">
+      <div className="relative flex lg:justify-end justify-center items-center mt-8 lg:mt-0">
         <button className="relative z-10 bg-purple-600 inline-block p-4 rounded-full hover:bg-black transition-all">
-          <img className="h-12 w-12" src={ArrowIcon}/>
+          <img className="lg:h-12 lg:w-12 h-4 w-4" src={ArrowIcon}/>
         </button>
         <hr className="absolute w-full top-1/2 transform -translate-y-1/2 z-0"/>
       </div>
